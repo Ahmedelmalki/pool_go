@@ -2,61 +2,61 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 	"unicode"
 )
 
 func main() {
-	i := os.Args[1]
-	fmt.Println(isValidInput(i))
-	fmt.Println(shit(i))
+	fmt.Println(evalRPN([]string{"123", "1", "+"}))
 }
 
-// func rpncalc(str string) int {
-// 	slc := strings.Split(str, " ")
-
-// }
-
-func isValidInput(str string) bool {
-	r := []rune(str)
-	for i := 0; i < len(r); i++ {
-		if !(unicode.IsDigit(r[i]) || (r[i] == ' ' || r[i] == '+' || r[i] == '-' || r[i] == '*' || r[i] == '/' || r[i] == '%')) {
-			//fmt.Println(string(r[i]))
-			return false
+func evalRPN(tokens []string) int {
+	var num int
+	stack := []int{}
+	for _, token := range tokens {
+		if token == "+" || token == "-" || token == "*" || token == "/" {
+			num1 := stack[len(stack)-2]
+			num2 := stack[len(stack)-1]
+			stack = stack[:len(stack)-2]
+			if token == "+" {
+				stack = append(stack, num1+num2)
+			} else if token == "-" {
+				stack = append(stack, num1-num2)
+			} else if token == "*" {
+				stack = append(stack, num1*num2)
+			} else if token == "/" {
+				stack = append(stack, num1/num2)
+			}
+		} else {
+			num, _ = strconv.Atoi(token)
 		}
+		stack = append(stack, num)
 	}
-	return true
+	return stack[0]
 }
 
-func shit(str string) []int {
-	intslc := []int{}
-	num1 := 0
-	num2 := 0
-	if isValidInput(str) {
-		for i := 0; i < len(str)-2; i++ {
-			if unicode.IsSpace(rune(str[i])) {
-				i++
-			}
-			if unicode.IsDigit(rune(str[i])) && unicode.IsDigit(rune(str[i+1])) {
-				num1, _ = strconv.Atoi(string(str[i]))
-				num2, _ = strconv.Atoi(string(str[i+1]))
-				if string(str[i+2]) == "+" {
-					intslc = append(intslc, num1+num2)
-				} else if string(str[i+2]) == "-" {
-					intslc = append(intslc, num1-num2)
-				} else if string(str[i+2]) == "/" {
-					intslc = append(intslc, num1/num2)
-				} else if string(str[i+2]) == "*" {
-					intslc = append(intslc, num1*num2)
-				} else if string(str[i+2]) == "%" {
-					intslc = append(intslc, num1%num2)
-				} else {
-					fmt.Println("error")
-					os.Exit(0)
-				}
-			}
-		}
+func Atoi(s string) int {
+	r := []rune(s)
+	var rs int
+	sign := 1
+	i := 0
+	for i < len(r) && unicode.IsSpace(r[i]) {
+		i++
 	}
-	return intslc
+	if i < len(r) && (r[i] == '-' || r[i] == '+') {
+		if r[i] == '-' {
+			sign = -1
+		}
+		i++
+	}
+	for i < len(r) && unicode.IsDigit(r[i]) {
+		rs = rs*10 + int(r[i]-'0')
+		if rs*sign > 2147483647 {
+			return 2147483647
+		} else if rs*sign < -2147483648 {
+			return -2147483648
+		}
+		i++
+	}
+	return rs * sign
 }
