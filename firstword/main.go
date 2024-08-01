@@ -1,17 +1,42 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
-func main() {
-fmt.Println(firstword("Write a function that takes a string and return a string containing its first word"))
+func Firstword(str string) string {
+	rs := ""
+	i := 0
+	for i < len(str) && str[i] == ' ' {
+		i++
+	}
+	for i < len(str) && str[i] != ' ' {
+		rs += string(str[i])
+		i++
+	}
+	return rs + "\n"
 }
 
-func firstword(str string) string {
-	words := []string{}
-	for i := 0; i < len(str); i++ {
-		if str[i] == 32 {
-			words = append(words, str[:i])
+var testCases = []struct {
+	in   string
+	want string
+}{
+	{"", "\n"},
+	{"             a as", "a\n"},
+	{"   f     d", "f\n"},
+	{"   asd    ad", "asd\n"},
+	{"   salut !!! ", "salut\n"},
+	{" salut ! ! !", "salut\n"},
+	{"salut ! !", "salut\n"},
+}
+
+func main() {
+	for _, tc := range testCases {
+		got := Firstword(tc.in)
+		if got != tc.want {
+			fmt.Printf("FirstWord(%q) = %q instead of %q\n", tc.in, got, tc.want)
+			os.Exit(1)
 		}
 	}
-	return words[0]
 }
