@@ -29,30 +29,38 @@ func main() {
 }
 
 func WeAreUnique(str1, str2 string) int {
-	result := ""
 	if len(str1) == 0 && len(str2) == 0 {
 		return -1
 	}
-	newstr := str1 + str2
-	for i, j := 0, 1; i < len(newstr) && j < len(newstr); i, j = i+1, j+1 {
-		if newstr[i] != newstr[j] {
-			result += string(newstr[i])
-		}
-	}
-	return len(result)
+	u1 := uniquechars(str1, str2)
+	u2 := uniquechars(str2, str1)
+	return len(u1) + len(u2)
 }
 
-// func mycontains(str1, str2 string) bool {
-// 	if len(str2) == 0 {
-// 		return true
-// 	}
-// 	if len(str1) < len(str2) {
-// 		return false
-// 	}
-// 	for i := 0; i < len(str1); i++ {
-// 		if str2 == str1[i:i+len(str2)] {
-// 			return true
-// 		}
-// 	}
-// 	return false
-// }
+func uniquechars(str1, str2 string) string {
+	uniquechars := []rune{}
+	for i := 0; i < len(str1); i++ {
+		if !contains(str2, rune(str1[i])) && !containschar(uniquechars, rune(str1[i])) {
+			uniquechars = append(uniquechars, rune(str1[i]))
+		}
+	}
+	return string(uniquechars)
+}
+
+func contains(s string, r rune) bool {
+	for _, v := range s {
+		if v == r {
+			return true
+		}
+	}
+	return false
+}
+
+func containschar(slice []rune, r rune) bool {
+	for _, v := range slice {
+		if v == r {
+			return true
+		}
+	}
+	return false
+}
