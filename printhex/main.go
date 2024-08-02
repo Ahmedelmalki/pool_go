@@ -16,8 +16,8 @@ func toHex(n int) string {
 
 	for n > 0 {
 		remainder := n % 16
+		result += string(hexDigits[remainder]) 
 		n = n / 16
-		result = string(hexDigits[remainder]) + result
 	}
 
 	return result
