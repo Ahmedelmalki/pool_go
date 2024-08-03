@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"unicode"
 )
 
@@ -28,7 +27,7 @@ func evalRPN(tokens []string) int {
 				stack = append(stack, num1/num2)
 			}
 		} else {
-			num, _ = strconv.Atoi(token)
+			num = Atoi(token)
 		}
 		stack = append(stack, num)
 	}
