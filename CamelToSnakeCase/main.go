@@ -1,79 +1,75 @@
 package main
 
 import (
-	"fmt"
+	"github.com/01-edu/go-tests/lib/challenge"
+	"github.com/01-edu/go-tests/solutions"
 )
 
 func main() {
-	fmt.Println(CamelToSnakeCase("HelloWorld"))
-	fmt.Println(CamelToSnakeCase("helloWorld"))
-	fmt.Println(CamelToSnakeCase("camelCase"))
-	fmt.Println(CamelToSnakeCase("CAMELtoSnackCASE"))
-	fmt.Println(CamelToSnakeCase("camelToSnakeCase"))
-	fmt.Println(CamelToSnakeCase("hey2"))
+	args := []string{
+		"CamelCase",
+		"camelCase",
+		"HelloWorld",
+		"132",
+		" ",
+		"",
+		"A",
+		"abcs",
+		"AbC",
+		"AbCEf",
+		"abcAree",
+		"ahe1Abde",
+		"tesTing1",
+		"SOME_VARIABLE",
+		"ASuperLonGVariableName",
+		"thisIsaTestOfCamelCase",
+		"aA",
+	}
+	for _, arg := range args {
+		challenge.Function(
+			"CamelToSnakeCase",
+			CamelToSnakeCase,
+			solutions.CamelToSnakeCase,
+			arg,
+		)
+	}
 }
+
+//	func main() {
+//		fmt.Println(CamelToSnakeCase("HelloWorldHJ"))
+//		fmt.Println(CamelToSnakeCase("helloWorld"))
+//		fmt.Println(CamelToSnakeCase("camelCase"))
+//		fmt.Println(CamelToSnakeCase("CAMELtoSnackCASE"))
+//		fmt.Println(CamelToSnakeCase("camelToSnakeCase"))
+//		fmt.Println(CamelToSnakeCase("heHy2"))
+//	}
 func CamelToSnakeCase(s string) string {
-	var rs string
-	prevIsLower := false
-	if !isCamel(s) {
+	rs := ""
+	if anwar(s) && len(s)>0{
 		return s
-	} else {
-		for _,r := range s {
-			if isLow(string(r)) {
-				rs += string(r)
-				prevIsLower = true
-			} else if isUp(string(r)){
-				if prevIsLower {
-				rs += "_"
-				} 
-				rs += string(r)
-				prevIsLower = false
-			} else {
-				rs = rs + string(r)
-			}
+	}
+	if len(s) == 0 {
+		return ""
+	}
+	if s[len(s)-1] >= 'A' && s[len(s)-1] <= 'Z' {
+		return s
+	}
+	for i := 0; i < len(s); i++ {
+		if s[i] >= '0' && s[i] <= '9' {
+			return s
 		}
-		return rs
-	}
-	
-}
-
-func isCamel(txt string) bool {
-	rs := []rune(txt)
-	for i := 0; i < len(rs); i++ {
-		if !isLow(string(rs[0])) {
-			return false
-		} else if isUp(string(rs[i])) {
-			if i == 1 || !isLow(string(rs[i-1])) {
-				return false
-			}
-		} else if !isValidCamelCase(rs[i]) {
-			return false
+		if i != 0 && (s[i] >= 'A' && s[i] <= 'Z') && (s[i+1] >= 'a' && s[i+1] <= 'z') && i < len(s)-1 && (s[i-1] >= 'a' && s[i-1] <= 'z') {
+			rs += "_"
 		}
+		rs += string(s[i])
+
 	}
-	return true
+	return rs
 }
 
-func isValidCamelCase(r rune) bool {
-	if r == '_' || (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') {
-		return true
-	}
-	return false
-}
-
-func isLow(s string) bool {
-	rs := []rune(s)
-	for i := 0; i < len(rs); i++ {
-		if rs[i] >= 'a' && rs[i] <= 'z' {
-			return true
-		}
-	}
-	return false
-}
-
-func isUp(s string) bool {
-	rs := []rune(s)
-	for i := 0; i < len(rs); i++ {
-		if rs[i] >= 'A' && rs[i] <= 'Z' {
+func anwar(s string) bool {
+	for i := 0; i <= len(s)-2; i++ {
+		if  (s[i] <= 'Z' && s[i] >= 'A') && (s[i+1] <= 'Z' && s[i+1] >= 'A')  {
 			return true
 		}
 	}
