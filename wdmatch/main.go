@@ -13,22 +13,19 @@ func main() {
 }
 
 func wdmatch(s1, s2 string) {
-	rs := ""
+	j := 0
 	for i := 0; i < len(s1); i++ {
-		if contains(rune(s1[i]), s2) {
-			rs += string(s1[i])
+		kayn := false
+		for ; j < len(s2); j++ {
+			if s1[i] == s2[j] {
+				j++ // move the pointer to make the programm more effective
+				kayn = true
+				break
+			}
+		}
+		if !kayn {
+			return
 		}
 	}
-	if s1 == rs {
-		fmt.Println(rs)
-	}
-}
-
-func contains(r rune, s string) bool {
-	for i := 0; i < len(s); i++ {
-		if r == rune(s[i]) {
-			return true
-		}
-	}
-	return false
+	fmt.Println(s1)
 }
