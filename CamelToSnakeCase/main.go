@@ -35,14 +35,7 @@ func main() {
 	}
 }
 
-//	func main() {
-//		fmt.Println(CamelToSnakeCase("HelloWorldHJ"))
-//		fmt.Println(CamelToSnakeCase("helloWorld"))
-//		fmt.Println(CamelToSnakeCase("camelCase"))
-//		fmt.Println(CamelToSnakeCase("CAMELtoSnackCASE"))
-//		fmt.Println(CamelToSnakeCase("camelToSnakeCase"))
-//		fmt.Println(CamelToSnakeCase("heHy2"))
-//	}
+
 func CamelToSnakeCase(s string) string {
 	rs := ""
 	if anwar(s) && len(s)>0{
