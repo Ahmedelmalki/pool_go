@@ -10,10 +10,10 @@ func main() {
 		fmt.Println()
 		return
 	}
-	ma3lomat := os.Args[1]
+	s := os.Args[1]
 	a := os.Args[2]
 	b := os.Args[3]
-	fmt.Println(searchreplace(ma3lomat, a, b))
+	fmt.Println(searchreplace(s, a, b))
 }
 func searchreplace(s, a, b string) string {
 	l := len(s)
