@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"github.com/01-edu/go-tests/lib/challenge"
 	"github.com/01-edu/go-tests/solutions"
 )
@@ -20,7 +21,7 @@ func main() {
 }
 
 func ZipString(s string) string {
-	if len(s) == 0{
+	if len(s) == 0 {
 		return s
 	}
 	rs := ""
@@ -29,10 +30,10 @@ func ZipString(s string) string {
 		if s[i] == s[i+1] {
 			c++
 		} else {
-			rs += string(c+48) + string(s[i])
+			rs += strconv.Itoa(c) + string(s[i])
 			c = 1
 		}
 	}
-	rs += string(c+48) + string(s[len(s)-1])
+	rs += strconv.Itoa(c) + string(s[len(s)-1])
 	return rs
 }

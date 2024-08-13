@@ -16,11 +16,9 @@ func main() {
 	fmt.Println(searchreplace(s, a, b))
 }
 func searchreplace(s, a, b string) string {
-	l := len(s)
 	for i := 0; i < len(s); i++ {
 		if string(s[i]) == a {
-			s = s[0:i] + b + s[i+1:l]
-			//fmt.Println(s)
+			s = s[0:i] + b + s[i+1:]
 		}
 	}
 	return s
