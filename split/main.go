@@ -19,6 +19,6 @@ func split(s, sep string) []string {
   
 
 func main() {
-	fmt.Println(split("hello world.there more than this,in this", " "))
+	fmt.Println(split("hello world.there                                        more than this,in this", " "))
 
 }

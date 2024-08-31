@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println(rostring("Let there     be light"))
+	fmt.Println(rostring("Let there                  be light"))
 }
 
 func rostring(s string) string {
